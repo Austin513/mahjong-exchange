@@ -12,7 +12,10 @@
     "test": "vitest run",
     "test:watch": "vitest",
     "bot-eval": "tsx scripts/bot-eval.ts",
-    "fit-model": "tsx scripts/fit-model.ts"
+    "fit-model": "tsx scripts/fit-model.ts",
+    "experiment": "tsx scripts/experiment.ts",
+    "e2e": "npm run build && PLAYWRIGHT_BROWSERS_PATH=0 playwright test",
+    "load-test": "tsx scripts/load-test.ts"
   },
   "dependencies": {
     "@pai-forge/riichi-mahjong": "1.1.1",
