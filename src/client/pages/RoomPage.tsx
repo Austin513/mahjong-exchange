@@ -7,6 +7,8 @@ import { HostPanel } from "../components/HostPanel";
 import { Feed } from "../components/Feed";
 import { ResultPanel } from "../components/ResultPanel";
 import type { Action } from "../../engine/types";
+import { MarketPanel } from "../components/market/MarketPanel";
+import { SettlementView } from "../components/market/SettlementView";
 
 export const MODE_LABEL = { house: "Trade Against the House", exchange: "Open Exchange" } as const;
 
@@ -59,7 +61,7 @@ export function RoomPage({ code, navigate }: { code: string; navigate: (to: stri
     );
   }
 
-  const { room, table, me, you } = state;
+  const { room, table, me, you, market } = state;
   const act = (action: Action) => table && send({ t: "act", handId: table.handId, action });
   const invite = `${location.origin}/r/${room.code}`;
   const copy = async () => {
@@ -111,9 +113,14 @@ export function RoomPage({ code, navigate }: { code: string; navigate: (to: stri
           )}
           {table && me && table.phase !== "ended" && <HandPanel me={me} table={table} room={room} act={act} />}
           {table && !me && table.phase !== "ended" && <p className="muted spectate-note">You are spectating — you see only public information.</p>}
-          {table?.phase === "ended" && table.result && <ResultPanel table={table} room={room} isHost={you.isHost} onNext={() => send({ t: "start" })} />}
+          {table?.phase === "ended" && table.result && (
+            <ResultPanel table={table} room={room} isHost={you.isHost} onNext={() => send({ t: "start" })}>
+              {market && <SettlementView market={market} />}
+            </ResultPanel>
+          )}
         </div>
         <aside className="side-col">
+          {market && <MarketPanel market={market} you={you} send={send} />}
           {you.isHost && <HostPanel room={room} send={send} />}
           <SeatsPanel room={room} you={you} send={send} />
           <Feed items={room.feed} />

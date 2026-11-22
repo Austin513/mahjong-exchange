@@ -19,6 +19,13 @@ export function HostPanel({ room, send, children }: Props) {
           {canStart ? "Deal the first hand" : "Fill all 4 seats to start"}
         </button>
       )}
+      <label className="field-row">
+        <span>
+          Seated players may trade
+          <span className="muted small"> — using their own tile knowledge</span>
+        </span>
+        <input type="checkbox" checked={s.seatedCanTrade} onChange={(e) => set({ seatedCanTrade: e.target.checked })} data-testid="toggle-seated-trade" />
+      </label>
       <details>
         <summary>Table timing</summary>
         <label className="field-row">
