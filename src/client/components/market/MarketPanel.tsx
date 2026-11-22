@@ -27,6 +27,19 @@ export function MarketPanel({ market, you, send }: { market: MarketView; you: Yo
         </p>
       )}
       {shared.mode === "house" ? <HouseMarket market={market} you={you} send={send} /> : <ExchangeMarket market={market} you={you} send={send} />}
+      {shared.bots.length > 0 && (
+        <div className="bot-list" data-testid="bot-list">
+          <h4>Trading bots in this room</h4>
+          <ul>
+            {shared.bots.map((b) => (
+              <li key={b.id} title={b.description}>
+                <span className="pill pill-bot">trading bot</span> {b.name} <span className="muted small">· {b.description}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
+      {shared.botSetupNote && <p className="blocked small">{shared.botSetupNote}</p>}
       <Tape tape={shared.tape} />
       <Leaderboard rows={shared.leaderboard} />
     </section>

@@ -121,7 +121,7 @@ export function RoomPage({ code, navigate }: { code: string; navigate: (to: stri
         </div>
         <aside className="side-col">
           {market && <MarketPanel market={market} you={you} send={send} />}
-          {you.isHost && <HostPanel room={room} send={send} />}
+          {you.isHost && <HostPanel room={room} send={send} botNote={market?.shared.botSetupNote} />}
           <SeatsPanel room={room} you={you} send={send} />
           <Feed items={room.feed} />
         </aside>
