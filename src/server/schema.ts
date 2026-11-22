@@ -45,6 +45,17 @@ export const clientMessageSchema = z.discriminatedUnion("t", [
   z.object({ t: z.literal("settings"), settings: settingsSchema }),
   z.object({ t: z.literal("start") }),
   z.object({ t: z.literal("act"), handId: z.string().max(80), action: actionSchema }),
+  z.object({
+    t: z.literal("order"),
+    handId: z.string().max(80),
+    contract: z.enum(["SEAT_0", "SEAT_1", "SEAT_2", "SEAT_3", "DRAW"]),
+    side: z.enum(["buy", "sell"]),
+    price: z.number().int().min(1).max(99),
+    qty: z.number().int().min(1).max(1000),
+    tif: z.enum(["gtc", "ioc"]),
+  }),
+  z.object({ t: z.literal("cancel"), orderId: z.string().max(40) }),
+  z.object({ t: z.literal("cancelAll") }),
   z.object({ t: z.literal("ping") }),
 ]);
 

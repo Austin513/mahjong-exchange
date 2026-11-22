@@ -4,6 +4,8 @@
 
 import type { PrivateSeatInfo, PublicTableView } from "../engine/views";
 import type { Action } from "../engine/types";
+import type { ContractId, Side, TimeInForce } from "../market/types";
+import type { MarketView } from "./market";
 
 export type GameMode = "house" | "exchange";
 export type TableBotKind = "smart" | "random";
@@ -48,7 +50,20 @@ export type ClientMessage =
   | { t: "settings"; settings: Partial<RoomSettings> }
   | { t: "start" }
   | { t: "act"; handId: string; action: Action }
+  | OrderMessage
+  | { t: "cancel"; orderId: string }
+  | { t: "cancelAll" }
   | { t: "ping" };
+
+export interface OrderMessage {
+  t: "order";
+  handId: string;
+  contract: ContractId;
+  side: Side;
+  price: number;
+  qty: number;
+  tif: TimeInForce;
+}
 
 
 // ------------------------------------------------------------- server -> client
@@ -102,6 +117,7 @@ export interface StateMessage {
   table: PublicTableView | null;
   me: PrivateSeatInfo | null;
   you: YouView;
+  market: MarketView | null;
 }
 
 export type ServerMessage =

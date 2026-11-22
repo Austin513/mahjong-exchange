@@ -8,6 +8,7 @@ import { z } from "zod";
 import { parseClientMessage } from "./schema";
 import { RoomRegistry } from "./rooms";
 import type { Conn, Room, RoomOptions } from "./room";
+import { MarketRoom } from "./marketRoom";
 import { sanitizeName } from "./room";
 
 export const MAX_MESSAGE_BYTES = 64 * 1024;
@@ -46,7 +47,7 @@ async function readBody(req: IncomingMessage, limit = 8 * 1024): Promise<string>
 }
 
 export function createApp(opts: AppOptions): { server: Server; registry: RoomRegistry; close: () => Promise<void> } {
-  const registry = new RoomRegistry(opts.roomFactory);
+  const registry = new RoomRegistry(opts.roomFactory ?? ((o) => new MarketRoom(o)));
   let connections = 0;
 
   const server = createServer(async (req, res) => {

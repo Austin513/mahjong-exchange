@@ -508,7 +508,7 @@ export class Room {
 
   /** Extra top-level fields for the state message (market in PR 2). Must return a JSON object fragment string. */
   protected extraState(_p: Participant): string {
-    return "";
+    return ',"market":null';
   }
 
   flush(): void {
