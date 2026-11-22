@@ -31,7 +31,7 @@ const settingsSchema = z
       public: z.number().int().min(0).max(6),
       noise: z.number().int().min(0).max(6),
       random: z.number().int().min(0).max(6),
-    }),
+    }).partial(),
     tradingBotPaceMs: z.number().int().min(250).max(30000),
   })
   .partial();

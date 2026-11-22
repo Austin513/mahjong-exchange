@@ -19,6 +19,7 @@ import {
   type FeedItem,
   type GameMode,
   type RoomSettings,
+  type SettingsPatch,
   type RoomView,
   type ServerMessage,
   type TableBotKind,
@@ -289,7 +290,7 @@ export class Room {
     return null;
   }
 
-  private updateSettings(s: Partial<RoomSettings>) {
+  private updateSettings(s: SettingsPatch) {
     this.settings = { ...this.settings, ...s, tradingBots: { ...this.settings.tradingBots, ...s.tradingBots } };
     this.onSettingsChanged();
     this.markDirty();
@@ -492,12 +493,13 @@ export class Room {
         const p = this.participants.get(o.participantId)!;
         return { kind: "human", participantId: p.id, name: p.name, connected: p.conns.size > 0, away: o.away };
       }),
-      participants: participants.slice(0, 100),
+      // Bounded payload: everyone seated plus the host, then the first spectators by join order.
+      participants: [...participants.filter((p) => p.seat !== null || p.isHost), ...participants.filter((p) => p.seat === null && !p.isHost).slice(0, 24)],
       spectatorCount: participants.filter((p) => p.seat === null).length,
       handNumber: this.handNumber,
       seeded: this.seed !== null,
       deadlines,
-      feed: this.feed.slice(-40),
+      feed: this.feed.slice(-25),
       serverNow: Date.now(),
     };
   }

@@ -40,6 +40,9 @@ export const DEFAULT_SETTINGS: RoomSettings = {
 
 export type SeatIndex = 0 | 1 | 2 | 3;
 
+/** Settings change: any subset of fields; trading bot counts merge per kind. */
+export type SettingsPatch = Partial<Omit<RoomSettings, "tradingBots">> & { tradingBots?: Partial<Record<TradingBotKind, number>> };
+
 /** Every command a client can send. Validated by src/server/schema.ts. */
 export type ClientMessage =
   | { t: "hello"; room: string; token?: string; name?: string }
@@ -47,7 +50,7 @@ export type ClientMessage =
   | { t: "stand" }
   | { t: "addBot"; seat: number; bot: TableBotKind }
   | { t: "removeBot"; seat: number }
-  | { t: "settings"; settings: Partial<RoomSettings> }
+  | { t: "settings"; settings: SettingsPatch }
   | { t: "start" }
   | { t: "act"; handId: string; action: Action }
   | OrderMessage

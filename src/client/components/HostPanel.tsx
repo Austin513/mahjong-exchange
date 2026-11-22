@@ -1,5 +1,5 @@
 import type { ReactNode } from "react";
-import { TRADING_BOT_KINDS, type ClientMessage, type RoomSettings, type RoomView } from "../../shared/protocol";
+import { TRADING_BOT_KINDS, type ClientMessage, type SettingsPatch, type RoomView } from "../../shared/protocol";
 
 interface Props {
   room: RoomView;
@@ -17,7 +17,7 @@ const BOT_LABELS = {
 
 export function HostPanel({ room, send, botNote, children }: Props) {
   const s = room.settings;
-  const set = (patch: Partial<RoomSettings>) => send({ t: "settings", settings: patch });
+  const set = (patch: SettingsPatch) => send({ t: "settings", settings: patch });
   const canStart = room.phase !== "playing" && room.seats.every(Boolean);
   return (
     <section className="panel host-panel" aria-label="Host controls" data-testid="host-panel">
@@ -78,7 +78,7 @@ export function HostPanel({ room, send, botNote, children }: Props) {
                 <b>{BOT_LABELS[k].name}</b>
                 <span className="muted small"> — {BOT_LABELS[k].help}</span>
               </span>
-              <select value={s.tradingBots[k]} onChange={(e) => set({ tradingBots: { ...s.tradingBots, [k]: Number(e.target.value) } })} data-testid={`bots-${k}`}>
+              <select value={s.tradingBots[k]} onChange={(e) => set({ tradingBots: { [k]: Number(e.target.value) } })} data-testid={`bots-${k}`}>
                 {[0, 1, 2, 3, 4].filter((n) => k !== "informed" || n <= 4).map((n) => (
                   <option key={n} value={n}>
                     {n}
