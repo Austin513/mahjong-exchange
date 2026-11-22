@@ -122,10 +122,11 @@ If it moved against them, nothing fills and the server returns the refreshed quo
 cannot post resting orders in House mode.
 
 **Fair value:** a conditional multinomial logit over the five outcomes, using only public
-features. Per seat: riichi, turns since riichi, open melds, yakuhai pon, dealer, discards
-made, tenpai signals. For the draw: live tiles left. It is fitted on bot self-play
-(`npm run fit-model`) and validated on held-out seeds against a base-rate prior and a
-hand-set baseline (log loss, Brier score). The softmax makes the five probabilities sum to 1.
+features. Per seat: dealer, riichi, how long since the riichi, open melds (and open melds ×
+wall progress), an exposed yakuhai set, the tsumogiri streak, and the number of other seats in
+riichi. For the draw: wall progress, 1/(live tiles + 1), and the riichi count. It is fitted on
+bot self-play (`npm run fit-model`) and validated on held-out seeds against a base-rate prior
+and a time + dealer ablation (log loss, Brier score, calibration; see `docs/MODEL.md`). The softmax makes the five probabilities sum to 1.
 **Quote:** `fv = 100·p`. `mid = fv − skew·inventory` (the inventory-aware policy). Bid and
 ask are `mid ∓ halfSpread`, rounded outward and clamped to 1–99. Size is fixed per refresh.
 Each quote carries the table `stateVersion`. Pricing runs from a deferred task, and a result

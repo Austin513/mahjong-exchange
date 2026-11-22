@@ -11,7 +11,8 @@
     "lint": "oxlint src tests scripts e2e",
     "test": "vitest run",
     "test:watch": "vitest",
-    "bot-eval": "tsx scripts/bot-eval.ts"
+    "bot-eval": "tsx scripts/bot-eval.ts",
+    "fit-model": "tsx scripts/fit-model.ts"
   },
   "dependencies": {
     "@pai-forge/riichi-mahjong": "1.1.1",
