@@ -42,6 +42,7 @@ export function HostPanel({ room, send, botNote, children }: Props) {
             <option value={250}>Fast</option>
             <option value={700}>Normal</option>
             <option value={1500}>Slow</option>
+            <option value={3000}>Very slow</option>
           </select>
         </label>
         <label className="field-row">
