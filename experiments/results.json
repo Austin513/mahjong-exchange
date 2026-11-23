@@ -1,0 +1,200 @@
+{
+  "config": {
+    "tuneHands": 150,
+    "evalHands": 400,
+    "tuneSeedPrefix": "qt-tune",
+    "evalSeedPrefix": "qt-eval",
+    "informedShares": [
+      0,
+      0.25,
+      0.5,
+      0.75
+    ],
+    "tuneInformedShare": 0.25,
+    "arrivalProb": 0.5,
+    "tradeSize": 10,
+    "informedEdgeTicks": 1,
+    "halfSpread": 3,
+    "quoteSize": 20,
+    "maxInventory": 400,
+    "skewGrid": [
+      0.02,
+      0.05,
+      0.08,
+      0.12,
+      0.2,
+      0.3
+    ]
+  },
+  "chosenSkew": 0.08,
+  "tuning": [
+    {
+      "skew": 0.02,
+      "housePnlPerHand": 435.26666666666665,
+      "housePnlSE": 134.49252357044233,
+      "vsInformedPerHand": -51.93333333333333,
+      "vsNoisePerHand": 487.2,
+      "fillRate": 0.8222543352601156,
+      "informedFillRate": 0.287369640787949,
+      "fills": 2845,
+      "meanMaxAbsInventory": 32.53333333333333
+    },
+    {
+      "skew": 0.05,
+      "housePnlPerHand": 427.2,
+      "housePnlSE": 132.52512724472436,
+      "vsInformedPerHand": -60,
+      "vsNoisePerHand": 487.2,
+      "fillRate": 0.823121387283237,
+      "informedFillRate": 0.2908458864426419,
+      "fills": 2848,
+      "meanMaxAbsInventory": 32.13333333333333
+    },
+    {
+      "skew": 0.08,
+      "housePnlPerHand": 441.8666666666667,
+      "housePnlSE": 126.64637963055718,
+      "vsInformedPerHand": -44.2,
+      "vsNoisePerHand": 486.06666666666666,
+      "fillRate": 0.8286127167630057,
+      "informedFillRate": 0.3128621089223638,
+      "fills": 2867,
+      "meanMaxAbsInventory": 31.666666666666668
+    },
+    {
+      "skew": 0.12,
+      "housePnlPerHand": 379.2,
+      "housePnlSE": 121.71303471194817,
+      "vsInformedPerHand": -103.8,
+      "vsNoisePerHand": 483,
+      "fillRate": 0.8410404624277457,
+      "informedFillRate": 0.3626882966396292,
+      "fills": 2910,
+      "meanMaxAbsInventory": 30.666666666666668
+    },
+    {
+      "skew": 0.2,
+      "housePnlPerHand": 349.06666666666666,
+      "housePnlSE": 102.27472529055636,
+      "vsInformedPerHand": -132.66666666666666,
+      "vsNoisePerHand": 481.73333333333335,
+      "fillRate": 0.8748554913294798,
+      "informedFillRate": 0.4982618771726535,
+      "fills": 3027,
+      "meanMaxAbsInventory": 28.333333333333332
+    },
+    {
+      "skew": 0.3,
+      "housePnlPerHand": 313,
+      "housePnlSE": 95.08647894809863,
+      "vsInformedPerHand": -161.26666666666668,
+      "vsNoisePerHand": 474.26666666666665,
+      "fillRate": 0.9101156069364161,
+      "informedFillRate": 0.6396292004634995,
+      "fills": 3149,
+      "meanMaxAbsInventory": 26.8
+    }
+  ],
+  "heldOut": [
+    {
+      "informedShare": 0,
+      "fixed": {
+        "housePnlPerHand": 965.175,
+        "housePnlSE": 88.27060196558045,
+        "vsInformedPerHand": 0,
+        "vsNoisePerHand": 965.175,
+        "fillRate": 1,
+        "informedFillRate": 0,
+        "fills": 9111,
+        "meanMaxAbsInventory": 36.25
+      },
+      "aware": {
+        "housePnlPerHand": 961.95,
+        "housePnlSE": 88.41101040397429,
+        "vsInformedPerHand": 0,
+        "vsNoisePerHand": 961.95,
+        "fillRate": 1,
+        "informedFillRate": 0,
+        "fills": 9111,
+        "meanMaxAbsInventory": 36.25
+      },
+      "pairedDiffPerHand": -3.225,
+      "pairedDiffSE": 2.9368240970378827
+    },
+    {
+      "informedShare": 0.25,
+      "fixed": {
+        "housePnlPerHand": 647.275,
+        "housePnlSE": 84.4065279812653,
+        "vsInformedPerHand": -71.75,
+        "vsNoisePerHand": 719.025,
+        "fillRate": 0.8276808253759192,
+        "informedFillRate": 0.28277752398355416,
+        "fills": 7541,
+        "meanMaxAbsInventory": 33.175
+      },
+      "aware": {
+        "housePnlPerHand": 638.85,
+        "housePnlSE": 80.96543365763196,
+        "vsInformedPerHand": -78.175,
+        "vsNoisePerHand": 717.025,
+        "fillRate": 0.8317418505103721,
+        "informedFillRate": 0.2996802192782092,
+        "fills": 7578,
+        "meanMaxAbsInventory": 32.2
+      },
+      "pairedDiffPerHand": -8.425,
+      "pairedDiffSE": 11.83467669048972
+    },
+    {
+      "informedShare": 0.5,
+      "fixed": {
+        "housePnlPerHand": 292.975,
+        "housePnlSE": 81.13416592680994,
+        "vsInformedPerHand": -178.025,
+        "vsNoisePerHand": 471,
+        "fillRate": 0.6480079025353968,
+        "informedFillRate": 0.2940788025533788,
+        "fills": 5904,
+        "meanMaxAbsInventory": 30.625
+      },
+      "aware": {
+        "housePnlPerHand": 264.75,
+        "housePnlSE": 72.07919860075664,
+        "vsInformedPerHand": -203.775,
+        "vsNoisePerHand": 468.525,
+        "fillRate": 0.6493249917681923,
+        "informedFillRate": 0.29672022892361877,
+        "fills": 5916,
+        "meanMaxAbsInventory": 28.275
+      },
+      "pairedDiffPerHand": -28.225,
+      "pairedDiffSE": 20.21622461741939
+    },
+    {
+      "informedShare": 0.75,
+      "fixed": {
+        "housePnlPerHand": 17.375,
+        "housePnlSE": 80.7570051645389,
+        "vsInformedPerHand": -199.8,
+        "vsNoisePerHand": 217.175,
+        "fillRate": 0.47184721764899573,
+        "informedFillRate": 0.3009877977919814,
+        "fills": 4299,
+        "meanMaxAbsInventory": 29.825
+      },
+      "aware": {
+        "housePnlPerHand": 22.25,
+        "housePnlSE": 69.47021931864366,
+        "vsInformedPerHand": -193.4,
+        "vsNoisePerHand": 215.65,
+        "fillRate": 0.46273735045549336,
+        "informedFillRate": 0.2889308541545613,
+        "fills": 4216,
+        "meanMaxAbsInventory": 25.625
+      },
+      "pairedDiffPerHand": 4.875,
+      "pairedDiffSE": 23.74396028598971
+    }
+  ]
+}
