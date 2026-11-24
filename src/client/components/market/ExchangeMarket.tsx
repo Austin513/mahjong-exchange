@@ -39,6 +39,8 @@ export function ExchangeMarket({ market, you, send }: Props) {
   const reserve = side === "buy" ? qty * price : (qty - covered) * (100 - price);
   const myAt = (p: number, s: Side) => (mine?.openOrders ?? []).filter((o) => o.contract === c.id && o.side === s && o.price === p).reduce((a, o) => a + o.qty, 0);
   const clampPx = (p: number) => Math.max(1, Math.min(99, Math.round(p) || 1));
+  const maxQty = Math.max(1, ...c.bids.map((l) => l.qty), ...c.asks.map((l) => l.qty));
+  const depth = (q: number) => ({ width: `${Math.round((100 * q) / maxQty)}%` });
 
   const submit = () => shared.handId && send({ t: "order", handId: shared.handId, contract: c.id, side, price, qty, tif });
 
@@ -65,7 +67,7 @@ export function ExchangeMarket({ market, you, send }: Props) {
           </div>
           {c.bids.length === 0 && c.asks.length === 0 ? (
             <p className="muted small empty-book" data-testid="empty-book">
-              Empty book — no one has quoted this contract yet. Post the first bid or ask.
+              Empty book. Nobody has quoted this contract yet, so post the first bid or ask.
             </p>
           ) : (
             <table>
@@ -81,7 +83,8 @@ export function ExchangeMarket({ market, you, send }: Props) {
                   <tr key={`a${l.price}`} className="ask-row" onClick={() => (setPrice(l.price), setSide("buy"))}>
                     <td />
                     <td className="ask">{l.price}</td>
-                    <td>
+                    <td className="qty-cell">
+                      <span className="depth depth-ask" style={depth(l.qty)} />
                       {l.qty}
                       {myAt(l.price, "sell") > 0 && <span className="mine"> (you {myAt(l.price, "sell")})</span>}
                     </td>
@@ -89,7 +92,8 @@ export function ExchangeMarket({ market, you, send }: Props) {
                 ))}
                 {c.bids.map((l) => (
                   <tr key={`b${l.price}`} className="bid-row" onClick={() => (setPrice(l.price), setSide("sell"))}>
-                    <td>
+                    <td className="qty-cell">
+                      <span className="depth depth-bid" style={depth(l.qty)} />
                       {myAt(l.price, "buy") > 0 && <span className="mine">(you {myAt(l.price, "buy")}) </span>}
                       {l.qty}
                     </td>
@@ -120,11 +124,11 @@ export function ExchangeMarket({ market, you, send }: Props) {
           <label>
             Price
             <span className="stepper">
-              <button type="button" className="btn btn-sm" onClick={() => setPrice(clampPx(price - 1))} aria-label="Lower price">
+              <button type="button" className="btn btn-sm btn-step" onClick={() => setPrice(clampPx(price - 1))} aria-label="Lower price">
                 −
               </button>
               <input type="number" min={1} max={99} value={price} onChange={(e) => setPrice(clampPx(Number(e.target.value)))} data-testid="ticket-price" />
-              <button type="button" className="btn btn-sm" onClick={() => setPrice(clampPx(price + 1))} aria-label="Raise price">
+              <button type="button" className="btn btn-sm btn-step" onClick={() => setPrice(clampPx(price + 1))} aria-label="Raise price">
                 +
               </button>
             </span>

@@ -22,10 +22,14 @@ async function joinByLink(browser: Browser, code: string, name: string, mobile =
   return page;
 }
 
-async function setBotSpeed(host: Page, value: "250" | "700" | "1500") {
+async function setBotSpeed(host: Page, value: "250" | "700" | "1500" | "3000") {
+  // Host controls live in the sidebar's Table tab; return to whichever tab was open.
+  const wasMarket = (await host.getByTestId("tab-market").getAttribute("aria-selected")) === "true";
+  await host.getByTestId("tab-table").click();
   const details = host.getByTestId("host-panel").locator("details", { hasText: "Table timing" });
   if (!(await details.evaluate((d) => (d as HTMLDetailsElement).open))) await details.locator("summary").click();
   await details.locator("select").first().selectOption(value);
+  if (wasMarket) await host.getByTestId("tab-market").click();
 }
 
 test("House mode: solo host with bot seats, a phone spectator joins by link, both trade and see settlement", async ({ page, browser }) => {
@@ -112,7 +116,9 @@ test("Open Exchange: friends-only book, true human-to-human fill, no house and n
   // Refresh: Bob keeps his identity and position.
   await bob.reload();
   await expect(bob.getByTestId("positions")).toContainText("Seat B long 4");
+  await bob.getByTestId("tab-table").click();
   await expect(bob.getByTestId("seats-panel")).toBeVisible();
+  await bob.getByTestId("tab-market").click();
 
   await setBotSpeed(page, "250");
   await expect(bob.getByTestId("settlement")).toBeVisible({ timeout: 150_000 });

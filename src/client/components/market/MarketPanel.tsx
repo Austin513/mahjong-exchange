@@ -14,10 +14,10 @@ export function MarketPanel({ market, you, send }: { market: MarketView; you: Yo
           {shared.status === "open" ? "OPEN" : shared.status === "closed" ? "CLOSED · settled" : "opens at the deal"}
         </span>
       </header>
-      <p className="muted small">
+      <p className="muted small market-blurb">
         {shared.mode === "house"
-          ? "The house is your counterparty. Each contract pays 100 credits per share if it wins and 0 otherwise."
-          : "Everyone trades in one shared book per contract. No house liquidity — friends and enabled trading bots are the counterparties."}
+          ? "You trade against the house. The winning contract pays 100 a share, the rest pay 0."
+          : "One shared book per contract. No house: friends and any trading bots are the other side."}
       </p>
       {mine && <AccountBar a={mine.account} />}
       {mine && <Positions a={mine.account} />}
